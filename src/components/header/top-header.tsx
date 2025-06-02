@@ -24,6 +24,7 @@ export function TopHeader({ className }: TopHeaderProps) {
   const [showColorPicker, setShowColorPicker] = useState(false)
   const [monoAccentColor, setMonoAccentColor] = useState("#3b82f6")
   const [mounted, setMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   const colorPresets = [
     { name: "Blue", color: "#3b82f6" },
@@ -36,13 +37,23 @@ export function TopHeader({ className }: TopHeaderProps) {
     { name: "Teal", color: "#14b8a6" },
   ]
 
-  // Handle client-side mounting
+  // Handle client-side mounting and mobile detection
   useEffect(() => {
     setMounted(true)
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+
     // Apply vibe theme by default
     if (typeof window !== 'undefined') {
       document.documentElement.classList.add("theme-vibe")
     }
+
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   const handleThemeChange = (newTheme: "light" | "vibe" | "dark" | "system" | "mono") => {
@@ -178,84 +189,97 @@ export function TopHeader({ className }: TopHeaderProps) {
               animation: 'float 3s ease-in-out infinite'
             }}>💻</span>
           </div>
-          <span className="text-sm text-white">
+          <span className={cn("text-white", isMobile ? "text-xs" : "text-sm")}>
             <span className="italic lowercase">vibe</span><span className="font-bold uppercase">CODER</span>
           </span>
         </div>
 
-        {/* Wallet Info */}
-        <div className="flex items-center space-x-3">
-          <div className="flex items-center space-x-1 text-xs text-white/80">
-            <span>Welcome,</span>
-            <span className="text-white font-medium">Alex</span>
-          </div>
-          <div className="flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
-            <div className="w-2 h-2 rounded-full bg-green-400"></div>
-            <span className="text-xs text-white/80">0x1234...5678</span>
-            <span className="text-xs text-green-400 font-medium">$1,234.56</span>
-            <div className="hidden group-hover:flex items-center space-x-1 ml-2">
-              <button className="text-xs text-white/60 hover:text-white px-1">Send</button>
-              <button className="text-xs text-white/60 hover:text-white px-1">Receive</button>
-              <button className="text-xs text-white/60 hover:text-white px-1">History</button>
+        {/* Wallet Info - Hidden on mobile */}
+        {!isMobile && (
+          <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-1 text-xs text-white/80">
+              <span>Welcome,</span>
+              <span className="text-white font-medium">Alex</span>
+            </div>
+            <div className="flex items-center space-x-2 px-3 py-1 rounded-full bg-white/5 hover:bg-white/10 transition-colors cursor-pointer group">
+              <div className="w-2 h-2 rounded-full bg-green-400"></div>
+              <span className="text-xs text-white/80">0x1234...5678</span>
+              <span className="text-xs text-green-400 font-medium">$1,234.56</span>
+              <div className="hidden group-hover:flex items-center space-x-1 ml-2">
+                <button className="text-xs text-white/60 hover:text-white px-1">Send</button>
+                <button className="text-xs text-white/60 hover:text-white px-1">Receive</button>
+                <button className="text-xs text-white/60 hover:text-white px-1">History</button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Center Section - Search */}
-      <div className="flex-1 max-w-md mx-4">
+      <div className={cn("flex-1 mx-4", isMobile ? "max-w-none" : "max-w-md")}>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-3 h-3 text-white/60" />
           <input
             type="text"
-            placeholder="Search the web, ask AI, or explore the internet..."
+            placeholder={isMobile ? "Search..." : "Search the web, ask AI, or explore the internet..."}
             className="w-full pl-9 pr-16 py-1.5 text-xs border border-white/10 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-400/50 focus:border-blue-400/50 text-white placeholder-white/60"
             style={{
               background: 'linear-gradient(135deg, rgba(20, 20, 60, 0.6), rgba(25, 25, 80, 0.5), rgba(30, 30, 100, 0.4))'
             }}
           />
-          <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
-            <kbd
-              className="px-1 py-0.5 text-[10px] text-white/60 rounded"
-              style={{
-                background: 'linear-gradient(135deg, rgba(20, 20, 60, 0.8), rgba(25, 25, 80, 0.6), rgba(30, 30, 100, 0.5))'
-              }}
-            >
-              ⌘
-            </kbd>
-            <kbd
-              className="px-1 py-0.5 text-[10px] text-white/60 rounded"
-              style={{
-                background: 'linear-gradient(135deg, rgba(20, 20, 60, 0.8), rgba(25, 25, 80, 0.6), rgba(30, 30, 100, 0.5))'
-              }}
-            >
-              K
-            </kbd>
-          </div>
+          {!isMobile && (
+            <div className="absolute right-2 top-1/2 transform -translate-y-1/2 flex items-center space-x-1">
+              <kbd
+                className="px-1 py-0.5 text-[10px] text-white/60 rounded"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(20, 20, 60, 0.8), rgba(25, 25, 80, 0.6), rgba(30, 30, 100, 0.5))'
+                }}
+              >
+                ⌘
+              </kbd>
+              <kbd
+                className="px-1 py-0.5 text-[10px] text-white/60 rounded"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(20, 20, 60, 0.8), rgba(25, 25, 80, 0.6), rgba(30, 30, 100, 0.5))'
+                }}
+              >
+                K
+              </kbd>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Right Section - Controls */}
-      <div className="flex items-center space-x-3">
-        {/* Auth Links */}
-        <div className="flex items-center space-x-2">
-          <a
-            href="/auth/login"
-            className="text-xs text-white/70 hover:text-white transition-colors px-2 py-1 rounded"
-          >
-            Login
-          </a>
+      <div className={cn("flex items-center", isMobile ? "space-x-1" : "space-x-3")}>
+        {/* Auth Links - Simplified on mobile */}
+        {!isMobile ? (
+          <div className="flex items-center space-x-2">
+            <a
+              href="/auth/login"
+              className="text-xs text-white/70 hover:text-white transition-colors px-2 py-1 rounded"
+            >
+              Login
+            </a>
+            <a
+              href="/auth/signup"
+              className="text-xs text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all px-3 py-1 rounded-full"
+            >
+              Sign Up
+            </a>
+          </div>
+        ) : (
           <a
             href="/auth/signup"
-            className="text-xs text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all px-3 py-1 rounded-full"
+            className="text-xs text-white bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 transition-all px-2 py-1 rounded-full"
           >
             Sign Up
           </a>
-        </div>
+        )}
 
-        <div className="w-px h-4 bg-white/20"></div>
+        {!isMobile && <div className="w-px h-4 bg-white/20"></div>}
 
-        <div className="flex items-center space-x-1">
+        <div className={cn("flex items-center", isMobile ? "space-x-0.5" : "space-x-1")}>
           {/* Theme Selector */}
         <div className="relative">
           <button

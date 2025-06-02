@@ -335,3 +335,95 @@ input:focus, textarea:focus, select:focus {
   border-color: var(--mono-accent);
   box-shadow: 0 0 0 2px var(--mono-accent);
 }
+
+/* Mobile Responsive Styles for VibeCODER */
+@layer utilities {
+  .mobile-layout {
+    @apply flex flex-col h-screen;
+  }
+
+  .tablet-layout {
+    @apply flex flex-row;
+  }
+
+  /* Mobile touch targets */
+  @media (max-width: 768px) {
+    button, .clickable {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Improve text readability on mobile */
+    .text-xs {
+      font-size: 0.8rem;
+    }
+
+    /* Better spacing for mobile */
+    .space-x-1 > * + * {
+      margin-left: 0.5rem;
+    }
+
+    /* Mobile-friendly scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+    }
+
+    /* Mobile layout adjustments */
+    .vibecoder-layout {
+      height: 100vh;
+      height: 100dvh; /* Dynamic viewport height for mobile */
+    }
+
+    .vibecoder-main.mobile-layout {
+      flex-direction: column;
+    }
+
+    /* Hide resize handles on mobile */
+    .resize-handle {
+      display: none;
+    }
+  }
+
+  /* Tablet adjustments */
+  @media (min-width: 768px) and (max-width: 1024px) {
+    .tablet-layout .secondary-sidebar {
+      width: 200px;
+    }
+
+    .tablet-layout .chat-panel {
+      width: 280px;
+    }
+  }
+
+  /* Mobile panel transitions */
+  @media (max-width: 768px) {
+    .mobile-panel-transition {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .mobile-panel-enter {
+      transform: translateX(100%);
+    }
+
+    .mobile-panel-enter-active {
+      transform: translateX(0);
+    }
+
+    .mobile-panel-exit {
+      transform: translateX(0);
+    }
+
+    .mobile-panel-exit-active {
+      transform: translateX(100%);
+    }
+  }
+}
