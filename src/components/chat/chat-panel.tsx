@@ -6,12 +6,10 @@ import {
   SendIcon,
   BrainIcon,
   SparklesIcon,
-  MoreVerticalIcon,
   XIcon,
-  SettingsIcon,
-  CogIcon
+  SettingsIcon
 } from "@/components/icons"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Tabs, TabsContent } from "@/components/ui/tabs"
 import { ResizeHandle } from "@/components/ui/resize-handle"
 
 interface ChatMessage {
@@ -286,12 +284,7 @@ export function ChatPanel({
 }: ChatPanelProps) {
   const [messages, setMessages] = useState<ChatMessage[]>(mockMessages)
   const [activeTab, setActiveTab] = useState("worldmodel")
-  const [mounted, setMounted] = useState(false)
   const [showSettings, setShowSettings] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const handleSendMessage = (content: string) => {
     const newMessage: ChatMessage = {
