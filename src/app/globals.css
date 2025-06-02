@@ -1,0 +1,337 @@
+@import "tailwindcss";
+
+:root {
+  /* TRUE MONOCHROMATIC - NO COLORS AT ALL */
+  --mono-accent: #404040;
+  --background: #f5f5f5;
+  --foreground: #1a1a1a;
+  --primary: #404040;
+  --primary-foreground: #f5f5f5;
+  --secondary: #e5e5e5;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f5f5f5;
+  --muted-foreground: #666666;
+  --accent: #d4d4d4;
+  --accent-foreground: #1a1a1a;
+  --border: #d4d4d4;
+  --input: #e5e5e5;
+  --ring: #404040;
+  --radius: 0.5rem;
+
+  /* VibeCoder Luxury Colors */
+  --luxury-gold: #d4af37;
+  --luxury-platinum: #e5e4e2;
+  --luxury-navy: #1e293b;
+  --luxury-charcoal: #374151;
+
+  /* Gradient Variables */
+  --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-luxury: linear-gradient(135deg, #d4af37 0%, #e5e4e2 50%, #1e293b 100%);
+  --gradient-accent: linear-gradient(45deg, #3b82f6 0%, #8b5cf6 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+
+  /* Monochromatic Theme Variables */
+  --mono-accent: #3b82f6;
+  --mono-base: #f8fafc;
+  --mono-surface: #ffffff;
+  --mono-border: #e2e8f0;
+  --mono-text: #0f172a;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* DARK MONOCHROMATIC - NO COLORS AT ALL */
+    --mono-accent: #666666;
+    --background: #1a1a1a;
+    --foreground: #f5f5f5;
+    --secondary: #2a2a2a;
+    --secondary-foreground: #f5f5f5;
+    --muted: #1a1a1a;
+    --muted-foreground: #999999;
+    --accent: #404040;
+    --accent-foreground: #f5f5f5;
+    --border: #404040;
+    --input: #2a2a2a;
+    --primary: #666666;
+    --primary-foreground: #f5f5f5;
+  }
+}
+
+/* Apply monochromatic theme by default */
+:root {
+  --mono-accent: #3b82f6;
+  --mono-base: #f8fafc;
+  --mono-surface: #ffffff;
+  --mono-border: #e2e8f0;
+  --mono-text: #0f172a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --mono-accent: #3b82f6;
+    --mono-base: #0f172a;
+    --mono-surface: #1e293b;
+    --mono-border: #334155;
+    --mono-text: #f1f5f9;
+  }
+}
+
+body {
+  background: #f5f5f5 !important;
+  color: #1a1a1a !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Vibe Theme - Deep Purple/Blue */
+.theme-vibe {
+  --background: #14143c;
+  --foreground: #f1f5f9;
+  --primary: #1e1e64;
+  --primary-foreground: #f1f5f9;
+  --secondary: #191950;
+  --secondary-foreground: #f1f5f9;
+  --muted: #14143c;
+  --muted-foreground: #94a3b8;
+  --accent: #1e1e64;
+  --accent-foreground: #f1f5f9;
+  --border: rgba(255, 255, 255, 0.1);
+  --input: #191950;
+  --ring: #1e1e64;
+}
+
+.theme-vibe body {
+  background: linear-gradient(135deg, #14143c 0%, #191950 25%, #1e1e64 50%, #191950 75%, #14143c 100%) !important;
+  color: #f1f5f9 !important;
+}
+
+/* Dark mode - still monochromatic gray */
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #1a1a1a !important;
+    color: #f5f5f5 !important;
+  }
+}
+
+/* Floating Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+/* VibeCoder Layout Styles */
+.vibecoder-layout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: linear-gradient(135deg, #14143c 0%, #191950 25%, #1e1e64 50%, #191950 75%, #14143c 100%);
+}
+
+.vibecoder-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.vibecoder-sidebar {
+  transition: width 0.2s ease-in-out;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(20, 20, 60, 0.95), rgba(25, 25, 80, 0.9), rgba(30, 30, 100, 0.85));
+  backdrop-filter: blur(12px);
+}
+
+.vibecoder-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+  background: linear-gradient(135deg, rgba(20, 20, 60, 0.95), rgba(25, 25, 80, 0.9), rgba(30, 30, 100, 0.85));
+}
+
+.vibecoder-panel {
+  transition: transform 0.2s ease-in-out;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(20, 20, 60, 0.95), rgba(25, 25, 80, 0.9), rgba(30, 30, 100, 0.85));
+  backdrop-filter: blur(12px);
+}
+
+/* Gentle input styling - no aggressive overrides */
+input:focus, textarea:focus, select:focus {
+  border-color: rgba(59, 130, 246, 0.5);
+  outline: none;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3);
+}
+
+/* Remove any remaining black/grey backgrounds */
+.bg-black, .bg-gray-900, .bg-gray-800, .bg-gray-700, .bg-mono-bg, .bg-mono-surface {
+  background: linear-gradient(135deg, rgba(20, 20, 60, 0.8), rgba(25, 25, 80, 0.6)) !important;
+}
+
+/* Fix any black borders */
+.border-black, .border-gray-900, .border-gray-800, .border-mono-border {
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Dark mode - still monochromatic gray */
+@media (prefers-color-scheme: dark) {
+  .vibecoder-sidebar {
+    border-right: 1px solid #404040 !important;
+    background: #1a1a1a !important;
+  }
+
+  .vibecoder-content {
+    background: #1a1a1a !important;
+  }
+
+  .vibecoder-panel {
+    border-left: 1px solid #404040 !important;
+    background: #1a1a1a !important;
+  }
+}
+
+/* Glass Morphism Effects */
+.vibecoder-glass {
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media (prefers-color-scheme: dark) {
+  .vibecoder-glass {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--muted-foreground);
+  border-radius: 4px;
+  opacity: 0.3;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.5;
+}
+
+/* Force Monochromatic Theme on All Elements */
+* {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+/* REMOVED CONFLICTING MONOCHROMATIC OVERRIDES */
+
+/* REMOVED BUTTON AND SVG OVERRIDES */
+
+/* GRADIENT UTILITIES RESTORED */
+.gradient-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gradient-luxury {
+  background: linear-gradient(135deg, #d4af37 0%, #e5e4e2 50%, #1e293b 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(45deg, #3b82f6 0%, #8b5cf6 100%);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Luxury Border Styles - MONOCHROME */
+.border-luxury {
+  border: 3px solid #666666 !important;
+}
+
+.border-luxury-gold {
+  border-color: #666666 !important;
+}
+
+.border-thin {
+  border-width: 1px !important;
+  border-color: #666666 !important;
+}
+
+.border-gradient {
+  border: 3px solid #666666 !important;
+}
+
+/* Enhanced Glass Effects - MONOCHROME */
+.glass-luxury {
+  background: rgba(64, 64, 64, 0.8) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(128, 128, 128, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Luxury Button Styles - MONOCHROME */
+.btn-luxury {
+  background: #404040 !important;
+  border: 2px solid #666666 !important;
+  color: #f5f5f5 !important;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(64, 64, 64, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn-luxury:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(64, 64, 64, 0.4);
+  background: #505050 !important;
+}
+
+/* Monochromatic Color Picker Styles */
+.color-picker-container {
+  background: var(--mono-surface);
+  border: 2px solid var(--mono-border);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 3px solid var(--mono-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+  border-color: var(--mono-accent);
+}
+
+.color-swatch.active {
+  border-color: var(--mono-accent);
+  box-shadow: 0 0 0 2px var(--mono-accent);
+}
